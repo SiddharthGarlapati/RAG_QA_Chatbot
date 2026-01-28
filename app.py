@@ -61,7 +61,7 @@ if api_key:
                 settings=Settings(anonymized_telemetry=False),
             )
 
-            vectorstore = Chroma.from_documents(
+            st.session_state.vectorstore = Chroma.from_documents(
                 documents=splits,
                 embedding=embeddings,
                 client=chroma_client,
@@ -69,7 +69,8 @@ if api_key:
             )
 
             st.session_state["vectorstore_ready"] = True
-
+        
+        vectorstore = st.session_state.vectorstore
         retriever = vectorstore.as_retriever()
 
         contextualize_q_system_prompt = (
