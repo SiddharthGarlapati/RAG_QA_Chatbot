@@ -16,7 +16,7 @@ load_dotenv()
 import chromadb
 from chromadb.config import Settings
 
-
+##
 
 os.environ["OPENAI_API_KEY"]= st.secrets["OPENAI_API_KEY"]
 
