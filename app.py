@@ -4,7 +4,6 @@ from langchain_chroma import Chroma
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_groq import ChatGroq
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.prompts import ChatPromptTemplate,MessagesPlaceholder
 from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -14,8 +13,12 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 load_dotenv()
+import chromadb
+from chromadb.config import Settings
 
-OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+
+
+os.environ["OPENAI_API_KEY"]= st.secrets["OPENAI_API_KEY"]
 
 
 embeddings = OpenAIEmbeddings(model= "text-embedding-3-large")
@@ -49,7 +52,24 @@ if api_key:
         
         text_splitter = RecursiveCharacterTextSplitter(chunk_size = 5000, chunk_overlap = 200)
         splits = text_splitter.split_documents(documents)
-        vectorstore = Chroma.from_documents(documents= splits, embedding= embeddings)
+
+        if "vectorstore_ready" not in st.session_state:
+            CHROMA_DIR = "/tmp/chroma_db"
+
+            chroma_client = chromadb.PersistentClient(
+                path=CHROMA_DIR,
+                settings=Settings(anonymized_telemetry=False),
+            )
+
+            vectorstore = Chroma.from_documents(
+                documents=splits,
+                embedding=embeddings,
+                client=chroma_client,
+                collection_name="rag_docs",
+            )
+
+            st.session_state["vectorstore_ready"] = True
+
         retriever = vectorstore.as_retriever()
 
         contextualize_q_system_prompt = (
