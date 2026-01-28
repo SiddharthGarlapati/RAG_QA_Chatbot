@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-st.secrets["OPENAI_API_KEY"]
+OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
 
 embeddings = OpenAIEmbeddings(model= "text-embedding-3-large")
