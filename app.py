@@ -18,7 +18,7 @@ from chromadb.config import Settings
 
 ##
 
-os.environ["OPENAI_API_KEY"]= st.secrets["OPENAI_API_KEY"]
+os.environ["OPENAI_API_KEY"]= os.getenv("OPENAI_API_KEY")
 
 
 embeddings = OpenAIEmbeddings(model= "text-embedding-3-large")
