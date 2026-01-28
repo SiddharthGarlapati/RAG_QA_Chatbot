@@ -1,0 +1,15 @@
+langchain==0.1.20
+langchain-core==0.1.53
+langchain-community
+streamlit
+python-dotenv
+langchain-openai==0.1.7
+langchain-chroma==0.1.4
+chromadb==0.5.23
+pypdf
+langchain-text-splitters
+langchain_huggingface
+# faiss-cpu
+openai
+pymupdf
+langchain_groq
