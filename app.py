@@ -15,8 +15,7 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
-os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
+
 
 embeddings = OpenAIEmbeddings(model= "text-embedding-3-large")
 
