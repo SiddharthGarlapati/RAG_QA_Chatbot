@@ -17,4 +17,4 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push https://Sid1169:$HF_TOKEN@huggingface.co/spaces/Sid1169/RAG_QA_chatbot main
+        run: git push https://Sid1169:$HF_TOKEN@huggingface.co/spaces/Sid1169/RAG_QA_chatbot main --force
